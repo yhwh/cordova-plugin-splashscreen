@@ -39,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
+import android.util.DisplayMetrics;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
@@ -306,13 +306,9 @@ public class SplashScreen extends CordovaPlugin {
                 }
 
                 // Create and show the dialog
-                splashDialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
-                // check to see if the splash screen should be full screen
-                if ((cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                        == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-                    splashDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                splashDialog = new Dialog(context, android.R.style.Theme_DeviceDefault_NoActionBar);
+                splashDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                }
                 splashDialog.setContentView(splashImageView);
                 splashDialog.setCancelable(false);
                 splashDialog.show();
@@ -353,13 +349,23 @@ public class SplashScreen extends CordovaPlugin {
                 spinnerDialog.setIndeterminate(true);
 
                 RelativeLayout centeredLayout = new RelativeLayout(cordova.getActivity());
+
                 centeredLayout.setGravity(Gravity.CENTER);
-                centeredLayout.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                centeredLayout.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
                 ProgressBar progressBar = new ProgressBar(webView.getContext());
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                
+                DisplayMetrics dm = new DisplayMetrics();
+                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+                int h = dm.widthPixels;
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (h * 0.06), (int) (h * 0.06));
+                progressBar.setIndeterminate(true);
+                int t = (int) (h * 0.25);
+                layoutParams.setMargins(0, t, 0, 0);
+
                 progressBar.setLayoutParams(layoutParams);
+                progressBar.requestLayout();
+
 
                 centeredLayout.addView(progressBar);
 
