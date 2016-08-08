@@ -74,14 +74,14 @@
     // Determine whether rotation should be enabled for this device
     // Per iOS HIG, landscape is only supported on iPad and iPhone 6+
     CDV_iOSDevice device = [self getCurrentDevice];
-    BOOL autorotateValue = (device.iPad || device.iPhone6Plus) ?
-        [(CDVViewController *)self.viewController shouldAutorotateDefaultValue] :
-        NO;
+    // BOOL autorotateValue = (device.iPad || device.iPhone6Plus) ?
+    //     [(CDVViewController *)self.viewController shouldAutorotateDefaultValue] :
+    //     NO;
 
-    [(CDVViewController *)self.viewController setEnabledAutorotation:autorotateValue];
+    // [(CDVViewController *)self.viewController setEnabledAutorotation:autorotateValue];
 
     NSString* topActivityIndicator = [self.commandDelegate.settings objectForKey:[@"TopActivityIndicator" lowercaseString]];
-    UIActivityIndicatorViewStyle topActivityIndicatorStyle = UIActivityIndicatorViewStyleGray;
+    UIActivityIndicatorViewStyle topActivityIndicatorStyle = UIActivityIndicatorViewStyleWhiteLarge;
 
     if ([topActivityIndicator isEqualToString:@"whiteLarge"])
     {
