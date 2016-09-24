@@ -141,7 +141,7 @@ public class SplashScreen extends CordovaPlugin {
             return;
         }
         // hide the splash screen to avoid leaking a window
-        this.removeSplashScreen(true);
+        // this.removeSplashScreen(true);
     }
 
     @Override
@@ -311,8 +311,8 @@ public class SplashScreen extends CordovaPlugin {
                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 splashDialog.setContentView(splashImageView);
                 splashDialog.setCancelable(false);
+                splashDialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
                 splashDialog.show();
-
                 if (preferences.getBoolean("ShowSplashScreenSpinner", true)) {
                     spinnerStart();
                 }
