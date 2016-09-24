@@ -136,7 +136,7 @@ public class SplashScreen extends CordovaPlugin {
     }
 
     @Override
-    public void onStop(boolean multitasking) {
+    public void onStop() {
         if (HAS_BUILT_IN_SPLASH_SCREEN) {
             return;
         }
